@@ -12,6 +12,7 @@ export default function Navbar() {
     { label: "Movies", href: "/hiimovies" },
     { label: "Rewatch Plan", href: "/#rewatch-plan" },
     { label: "Booking", href: "/#booking" },
+    { label: "WatchList", href: "/watach" },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
