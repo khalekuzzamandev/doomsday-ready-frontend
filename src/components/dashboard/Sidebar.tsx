@@ -16,6 +16,10 @@ import {
   LogOut,
   Building2,
   Sparkles,
+  Users,
+  UserX,
+  Crown,
+  UserRoundCheck,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -26,22 +30,71 @@ const navGroups = [
   {
     title: "Overview",
     items: [
-      { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-      { icon: ChartNoAxesCombined, label: "Analytics", href: "/dashboard/analytics" },
+      {
+        icon: LayoutDashboard,
+        label: "Dashboard",
+        href: "/dashboard",
+      },
+      {
+        icon: ChartNoAxesCombined,
+        label: "Analytics",
+        href: "/dashboard/analytics",
+      },
     ],
   },
   {
     title: "Content Management",
     items: [
-      { icon: Film, label: "Movies", href: "/dashboard/movies" },
-      { icon: Clapperboard, label: "Rewatch Management", href: "/dashboard/rewatch" },
+      {
+        icon: Film,
+        label: "Movies",
+        href: "/dashboard/movies",
+      },
+      {
+        icon: Clapperboard,
+        label: "Rewatch Management",
+        href: "/dashboard/rewatch",
+      },
     ],
   },
   {
     title: "Booking Management",
     items: [
-      { icon: Building2, label: "Cinemas", href: "/dashboard/cinemas" },
-      { icon: Ticket, label: "Booking & Quotes", href: "/dashboard/bookings" },
+      {
+        icon: Building2,
+        label: "Cinemas",
+        href: "/dashboard/cinemas",
+      },
+      {
+        icon: Ticket,
+        label: "Booking & Quotes",
+        href: "/dashboard/bookings",
+      },
+    ],
+  },
+  {
+    title: "User Management",
+    items: [
+      {
+        icon: Users,
+        label: "All Users",
+        href: "/dashboard/users",
+      },
+      {
+        icon: UserX,
+        label: "Blocked Users",
+        href: "/dashboard/users/blocked",
+      },
+      {
+        icon: Crown,
+        label: "Paid Users",
+        href: "/dashboard/users/paid",
+      },
+      {
+        icon: UserRoundCheck,
+        label: "Free Users",
+        href: "/dashboard/users/free",
+      },
     ],
   },
 ];
@@ -51,7 +104,10 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const isActive = (href: string) => {
-    if (href === "/dashboard") return pathname === href;
+    if (href === "/dashboard") {
+      return pathname === href;
+    }
+
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
@@ -104,6 +160,7 @@ const Sidebar = () => {
               <h1 className="text-base font-black tracking-tight text-white">
                 DOOMSDAY<span className="text-red-500">.</span>
               </h1>
+
               <p className="text-[8px] font-bold uppercase tracking-[0.17em] text-white/40">
                 Admin Control Center
               </p>
@@ -126,7 +183,10 @@ const Sidebar = () => {
           </div>
 
           <div>
-            <p className="text-[11px] font-bold text-white">Administrator</p>
+            <p className="text-[11px] font-bold text-white">
+              Administrator
+            </p>
+
             <p className="mt-0.5 text-[9px] text-white/40">
               Full Access Control
             </p>
@@ -136,7 +196,7 @@ const Sidebar = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-5 overflow-y-auto">
+        <nav className="flex-1 space-y-5 overflow-y-auto pb-3 scrollbar-thin">
           {navGroups.map((group) => (
             <div key={group.title}>
               <p className="mb-2 px-2 text-[9px] font-bold uppercase tracking-[0.17em] text-white/30">
@@ -176,7 +236,10 @@ const Sidebar = () => {
                       </span>
 
                       {active && (
-                        <ChevronRight size={14} className="text-red-500" />
+                        <ChevronRight
+                          size={14}
+                          className="text-red-500"
+                        />
                       )}
                     </Link>
                   );
@@ -216,6 +279,7 @@ const Sidebar = () => {
               <p className="truncate text-[11px] font-bold text-white">
                 Admin Profile
               </p>
+
               <p className="mt-0.5 text-[9px] text-white/40">
                 Manage Account
               </p>
@@ -237,6 +301,7 @@ const Sidebar = () => {
         </div>
       </aside>
 
+      {/* Mobile Spacing */}
       <div className="h-14 md:hidden" />
     </>
   );
