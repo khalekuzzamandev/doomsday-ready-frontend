@@ -67,10 +67,10 @@ export default function Navbar() {
 
           {/* Booking */}
           <Link
-            href="/#booking"
+            href="/login"
             className="rounded-md bg-red-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
           >
-            Book watch party
+            sign in
           </Link>
         </div>
 
@@ -123,11 +123,11 @@ export default function Navbar() {
 
             {/* Mobile Booking */}
             <Link
-              href="/#booking"
+              href="/login"
               onClick={() => setIsOpen(false)}
               className="mt-4 rounded-md bg-red-600 px-5 py-3 text-center text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
             >
-              Book watch party
+              Sign in
             </Link>
 
           </div>
