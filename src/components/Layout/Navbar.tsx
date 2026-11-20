@@ -27,10 +27,10 @@ export default function Navbar() {
   const user = data?.user;
  
   const navLinks = [
-    { label: "Movies", href: "/hiimovies" },
-    { label: "Rewatch Plan", href: "/#rewatch-plan" },
-    { label: "Booking", href: "/#booking" },
-    { label: "WatchList", href: "/watach" },
+    { label: "Movies", href: "/movies" },
+    { label: "Rewatch Plan", href: "/rewatch" },
+    { label: "Booking", href: "/booking" },
+    { label: "WatchList", href: "/watchlist" },
   ];
 
   // when redirect dashboard navbar is hidden
