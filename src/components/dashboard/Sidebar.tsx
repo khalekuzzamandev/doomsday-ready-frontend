@@ -12,20 +12,21 @@ import {
   X,
   ChevronRight,
   ShieldCheck,
-  UserRound,
-  LogOut,
   Building2,
   Sparkles,
   Users,
   UserX,
   Crown,
   UserRoundCheck,
+  ArrowLeft,
 } from "lucide-react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Profile from "./Profile";
+import Image from "next/image";
+import logo from "@/app/Logo.png"
 
 const navGroups = [
   {
@@ -150,28 +151,36 @@ const Sidebar = () => {
         className={`fixed left-0 top-0 z-50 flex h-screen w-[250px] flex-col border-r border-white/10 bg-[#0B0C12] px-4 py-5 transition-transform duration-300 md:sticky md:top-0 md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
       >
+
         {/* Brand */}
-        <div className="mb-7 flex items-center justify-between">
-          <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-red-600 shadow-lg shadow-red-600/20">
-              <Clapperboard size={19} className="text-white" />
-            </div>
-
-            <div>
-              <h1 className="text-base font-black tracking-tight text-white">
-                DOOMSDAY<span className="text-red-500">.</span>
-              </h1>
-
-              <p className="text-[8px] font-bold uppercase tracking-[0.17em] text-white/40">
-                Admin Control Center
-              </p>
-            </div>
+        <div className="relative mb-8 flex shrink-0 items-center justify-between border-b border-white/[0.07] pb-5">
+          {/* Back Button */}
+          <Link href={'/'}
+            className="absolute left-0 rounded-lg p-2 text-white/50 transition-all duration-300 hover:bg-white/5 hover:text-white"
+          >
+            <ArrowLeft size={20} />
           </Link>
 
+          {/* Brand Logo */}
+          <Link
+            href="/dashboard"
+            className="flex w-full items-center justify-center"
+          >
+            <Image
+              src={logo}
+              width={120}
+              height={80}
+              alt="Doomsday Logo"
+              priority
+              className="w-auto max-w-34 object-contain transition-transform duration-300 hover:scale-105"
+            />
+          </Link>
+
+          {/* Close Button */}
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Close menu"
-            className="text-white/50 hover:text-white md:hidden"
+            className="absolute right-0 rounded-lg p-2 text-white/40 transition hover:bg-white/5 hover:text-white md:hidden"
           >
             <X size={19} />
           </button>
