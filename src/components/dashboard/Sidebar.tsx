@@ -25,6 +25,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Profile from "./Profile";
 
 const navGroups = [
   {
@@ -266,34 +267,7 @@ const Sidebar = () => {
           </Link>
 
           {/* Admin Profile */}
-          <div className="flex items-center gap-2.5 rounded-lg border border-white/10 bg-white/[0.04] p-2">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-600">
-              <UserRound size={18} className="text-white" />
-            </div>
-
-            <Link
-              href="/dashboard/profile"
-              onClick={() => setIsOpen(false)}
-              className="min-w-0 flex-1"
-            >
-              <p className="truncate text-[11px] font-bold text-white">
-                Admin Profile
-              </p>
-
-              <p className="mt-0.5 text-[9px] text-white/40">
-                Manage Account
-              </p>
-            </Link>
-
-            <button
-              type="button"
-              title="Logout"
-              aria-label="Logout"
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white/40 transition hover:bg-red-600/15 hover:text-red-500"
-            >
-              <LogOut size={15} />
-            </button>
-          </div>
+              <Profile/>
 
           <p className="text-center text-[8px] tracking-wider text-white/20">
             DOOMSDAY READY © 2026
