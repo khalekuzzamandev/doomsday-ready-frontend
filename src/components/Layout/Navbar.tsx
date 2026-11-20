@@ -14,20 +14,30 @@ import Link from "next/link";
 
 import { authClient, useSession } from "@/components/lib/auth-client";
 import { useState } from "react";
+import { MdOutlineDashboard } from "react-icons/md";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+   
+
   const [isOpen, setIsOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   const { data, isPending } = useSession();
   const user = data?.user;
-
+ 
   const navLinks = [
     { label: "Movies", href: "/hiimovies" },
     { label: "Rewatch Plan", href: "/#rewatch-plan" },
     { label: "Booking", href: "/#booking" },
     { label: "WatchList", href: "/watach" },
   ];
+
+  // when redirect dashboard navbar is hidden
+  const pathname = usePathname();
+  if (pathname.includes("dashboard")) {
+    return null
+  }
 
   const handleLogout = async () => {
     try {
@@ -38,8 +48,9 @@ export default function Navbar() {
     }
   };
 
+
   const userProfile = (
-    <div className="flex items-center gap-3 rounded-md border border-white/15 bg-white/5">
+    <div className="flex items-center gap-3 rounded-md border border-white/15 bg-white/5 p-1">
       <Link
         href="/profile"
         onClick={() => setIsOpen(false)}
@@ -48,29 +59,41 @@ export default function Navbar() {
         {user?.image && !imageError ? (
           <Image
             src={user.image}
-            width={30}
-            height={50}
+            width={38}
+            height={38}
             alt={user.name || "User Profile"}
             referrerPolicy="no-referrer"
             onError={() => setImageError(true)}
-            className="h-9 w-9 rounded-md border border-none object-cover"
+            className="h-9 w-9 rounded-md object-cover"
           />
         ) : (
-          <div className="flex h-[38px] w-[38px] items-center justify-center rounded-md bg-red-600">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-red-600">
             <UserRound size={20} />
           </div>
         )}
       </Link>
 
-      <button
-        type="button"
-        onClick={handleLogout}
-        title="Logout"
-        aria-label="Logout"
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border-l border-white/15 text-white/70 transition hover:bg-red-600 hover:text-white"
-      >
-        <LogOut size={18} />
-      </button>
+      {user?.role === "admin" ? (
+        <Link
+          href="/dashboard"
+          onClick={() => setIsOpen(false)}
+          title="Dashboard"
+          aria-label="Dashboard"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border-l border-white/15 text-white/70 transition hover:bg-orange-600 hover:text-white"
+        >
+          <MdOutlineDashboard size={20} />
+        </Link>
+      ) : (
+        <button
+          type="button"
+          onClick={handleLogout}
+          title="Logout"
+          aria-label="Logout"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border-l border-white/15 text-white/70 transition hover:bg-red-600 hover:text-white"
+        >
+          <LogOut size={18} />
+        </button>
+      )}
     </div>
   );
 

@@ -1,4 +1,4 @@
-
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -7,8 +7,14 @@ ArrowUp,
 import logo from "@/app/Logo.png";
 import { FaFacebook } from "react-icons/fa";
 import { BsInstagram, BsYoutube } from "react-icons/bs";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  // when redirect dashboard Footer is hidden
+    const pathname = usePathname();
+    if (pathname.includes("dashboard")) {
+      return null
+    }
   return (
     <footer className="border-t border-white/10 bg-black text-white">
 
