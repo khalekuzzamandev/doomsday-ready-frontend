@@ -1,6 +1,8 @@
+
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
+
 const MONGODB_URL = process.env.MONGODB_URL;
 
 if (!MONGODB_URL) {
@@ -8,13 +10,19 @@ if (!MONGODB_URL) {
 }
 
 const client = new MongoClient(MONGODB_URL);
-const db = client.db("doctors-tracker");
+const db = client.db("doomsday-ready-frontend");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
 
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
+  },
 
   emailAndPassword: {
     enabled: true,
@@ -25,12 +33,7 @@ export const auth = betterAuth({
       role: {
         type: "string",
         defaultValue: "admin",
-        input: true,
-      },
-      phone: {
-        type: "string",
-        required: true,
-        input: true,
+        input: false,
       },
     },
   },
