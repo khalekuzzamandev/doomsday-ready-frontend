@@ -11,6 +11,7 @@ import {
   Eye,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const movies = [
   {
@@ -80,10 +81,10 @@ const Movie = () => {
           </p>
         </div>
 
-        <button className="flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-red-950/30 transition hover:bg-red-500">
+        <Link href={'/dashboard/movies/create'} className="flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-red-950/30 transition hover:bg-red-500">
           <Plus size={17} />
-          Add New Movie
-        </button>
+          Add New Movie fdsd
+        </Link>
       </div>
 
       {/* Table Container */}
