@@ -3,11 +3,25 @@
 
 import Image from "next/image";
 import logo from "@/app/Logo.png";
-import { Menu, Search, X } from "lucide-react";
+import {
+  Menu,
+  Search,
+  X,
+  UserRound,
+  LogOut,
+} from "lucide-react";
 import Link from "next/link";
+
+import { authClient, useSession } from "@/components/lib/auth-client";
 import { useState } from "react";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const { data, isPending } = useSession();
+  const user = data?.user;
+
   const navLinks = [
     { label: "Movies", href: "/hiimovies" },
     { label: "Rewatch Plan", href: "/#rewatch-plan" },
@@ -15,11 +29,70 @@ export default function Navbar() {
     { label: "WatchList", href: "/watach" },
   ];
 
-  const [isOpen, setIsOpen] = useState(false);
+  const handleLogout = async () => {
+    try {
+      await authClient.signOut();
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Logout Error:", error);
+    }
+  };
+
+  const userProfile = (
+    <div className="flex items-center gap-3 rounded-md border border-white/15 bg-white/5">
+      <Link
+        href="/profile"
+        onClick={() => setIsOpen(false)}
+        className="flex min-w-0 items-center transition hover:opacity-80"
+      >
+        {user?.image && !imageError ? (
+          <Image
+            src={user.image}
+            width={30}
+            height={50}
+            alt={user.name || "User Profile"}
+            referrerPolicy="no-referrer"
+            onError={() => setImageError(true)}
+            className="h-9 w-9 rounded-md border border-none object-cover"
+          />
+        ) : (
+          <div className="flex h-[38px] w-[38px] items-center justify-center rounded-md bg-red-600">
+            <UserRound size={20} />
+          </div>
+        )}
+      </Link>
+
+      <button
+        type="button"
+        onClick={handleLogout}
+        title="Logout"
+        aria-label="Logout"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border-l border-white/15 text-white/70 transition hover:bg-red-600 hover:text-white"
+      >
+        <LogOut size={18} />
+      </button>
+    </div>
+  );
+
+  const signInButton = (
+    <Link
+      href="/login"
+      className="rounded-md bg-red-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
+    >
+      Sign In
+    </Link>
+  );
+
+  const authentication = isPending ? (
+    <div className="h-10 w-28 animate-pulse rounded-md bg-white/10" />
+  ) : user ? (
+    userProfile
+  ) : (
+    signInButton
+  );
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#100e0e] text-white shadow-lg">
-
       <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
@@ -38,43 +111,39 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((navIteam) => (
+          {navLinks.map((navItem) => (
             <Link
-              key={navIteam.href}
-              href={navIteam.href}
+              key={navItem.href}
+              href={navItem.href}
               className="text-xs font-semibold uppercase tracking-wider text-white/75 transition hover:text-red-400"
             >
-              {navIteam.label}
+              {navItem.label}
             </Link>
           ))}
         </div>
 
-        {/* Desktop Search & Button */}
+        {/* Desktop Search & Profile */}
         <div className="hidden items-center gap-3 md:flex">
-
-          {/* Search */}
-          <div className="flex w-34 items-center overflow-hidden rounded-md border border-white/15 bg-white/5 lg:w-34">
+          <div className="flex w-36 items-center overflow-hidden rounded-md border border-white/15 bg-white/5">
             <input
               type="text"
               placeholder="Search..."
               className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-white outline-none placeholder:text-white/45"
             />
 
-            <button className="flex h-9 w-10 shrink-0 items-center justify-center border-l border-white/15 text-white/70 transition hover:bg-red-600 hover:text-white">
-              <Search size={18} strokeWidth={2} />
+            <button
+              type="button"
+              aria-label="Search"
+              className="flex h-9 w-10 shrink-0 items-center justify-center border-l border-white/15 text-white/70 transition hover:bg-red-600 hover:text-white"
+            >
+              <Search size={18} />
             </button>
           </div>
 
-          {/* Booking */}
-          <Link
-            href="/login"
-            className="rounded-md bg-red-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
-          >
-            sign in
-          </Link>
+          {authentication}
         </div>
 
-        {/* Mobile Menu Icon */}
+        {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
@@ -82,13 +151,8 @@ export default function Navbar() {
           aria-expanded={isOpen}
           className="flex h-10 w-10 items-center justify-center rounded-md border border-white/15 transition hover:bg-white/10 lg:hidden"
         >
-          {isOpen ? (
-            <X size={22} strokeWidth={2} />
-          ) : (
-            <Menu size={22} strokeWidth={2} />
-          )}
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
-
       </div>
 
       {/* Mobile Navigation */}
@@ -104,36 +168,34 @@ export default function Navbar() {
                 className="min-w-0 flex-1 bg-transparent px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/45"
               />
 
-              <button className="flex h-10 w-10 shrink-0 items-center justify-center border-l border-white/15 text-white/70 transition hover:bg-red-600 hover:text-white">
+              <button
+                type="button"
+                aria-label="Search"
+                className="flex h-10 w-10 shrink-0 items-center justify-center border-l border-white/15 text-white/70 transition hover:bg-red-600 hover:text-white"
+              >
                 <Search size={18} />
               </button>
             </div>
 
             {/* Mobile Links */}
-            {navLinks.map((navIteam) => (
+            {navLinks.map((navItem) => (
               <Link
-                key={navIteam.href}
-                href={navIteam.href}
+                key={navItem.href}
+                href={navItem.href}
                 onClick={() => setIsOpen(false)}
                 className="border-b border-white/10 py-4 text-sm font-semibold uppercase tracking-wider text-white/75 transition hover:text-red-400"
               >
-                {navIteam.label}
+                {navItem.label}
               </Link>
             ))}
 
-            {/* Mobile Booking */}
-            <Link
-              href="/login"
-              onClick={() => setIsOpen(false)}
-              className="mt-4 rounded-md bg-red-600 px-5 py-3 text-center text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
-            >
-              Sign in
-            </Link>
-
+            {/* Mobile Authentication */}
+            <div className="mt-4">
+              {authentication}
+            </div>
           </div>
         </div>
       )}
-
     </nav>
   );
 }
