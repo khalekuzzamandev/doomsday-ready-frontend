@@ -100,7 +100,7 @@ export default function Navbar() {
   const signInButton = (
     <Link
       href="/login"
-      className="rounded-md bg-red-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
+      className="rounded-md bg-red-600 py-2.5 text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
     >
       Sign In
     </Link>
@@ -116,7 +116,7 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#100e0e] text-white shadow-lg">
-      <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4">
 
         {/* Logo */}
         <Link
@@ -147,11 +147,11 @@ export default function Navbar() {
 
         {/* Desktop Search & Profile */}
         <div className="hidden items-center gap-3 md:flex">
-          <div className="flex w-36 items-center overflow-hidden rounded-md border border-white/15 bg-white/5">
+          <div className="flex w-36 items-center overflow-hidden rounded-md border border-white/15 bg-white/5 px-2">
             <input
               type="text"
               placeholder="Search..."
-              className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm text-white outline-none placeholder:text-white/45"
+              className="min-w-0 flex-1 bg-transparent py-2 text-sm text-white outline-none placeholder:text-white/45"
             />
 
             <button
@@ -180,7 +180,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="border-t border-white/10 bg-[#100e0e] px-4 py-4 lg:hidden">
+        <div className="border-t border-white/10 bg-[#100e0e]  py-4 lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col">
 
             {/* Mobile Search */}
