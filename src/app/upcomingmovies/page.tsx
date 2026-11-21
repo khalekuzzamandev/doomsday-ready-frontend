@@ -46,10 +46,9 @@ const movies = [
 
 const UpcommigMovies = () => {
   return (
-    <div className="min-h-screen bg-[#090909] px-4 py-6 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl space-y-7">
+    <section className="bg-[#090909] px-4 py-4 text-white sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl space-y-6">
 
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-red-600/20 bg-red-600/10">
@@ -71,14 +70,12 @@ const UpcommigMovies = () => {
           </span>
         </div>
 
-        {/* Movies Grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {movies.map((movie) => (
             <div
               key={movie.id}
               className="group overflow-hidden rounded-xl border border-white/10 bg-[#101010] p-2 transition duration-300 hover:border-red-600/40"
             >
-              {/* Dark Movie Poster */}
               <div className="relative h-32 w-full overflow-hidden rounded-lg bg-[#090909] sm:h-36">
                 <Image
                   src={movie.poster}
@@ -91,7 +88,6 @@ const UpcommigMovies = () => {
 
                 <div className="absolute inset-0 bg-black/30" />
 
-                {/* Coming Soon Badge */}
                 <div className="absolute left-3 top-3">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/30 bg-black/80 px-3 py-1.5 text-xs font-semibold text-red-400 shadow-lg backdrop-blur-md">
                     <Lock size={12} />
@@ -99,7 +95,6 @@ const UpcommigMovies = () => {
                   </span>
                 </div>
 
-                {/* Unavailable Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex flex-col items-center gap-1.5 text-gray-400">
                     <Lock size={22} />
@@ -110,24 +105,20 @@ const UpcommigMovies = () => {
                 </div>
               </div>
 
-              {/* Movie Title */}
               <h2 className="mt-3 truncate px-1 text-sm font-semibold text-gray-300">
                 {movie.title}
               </h2>
 
-              {/* Release Date */}
               <div className="mt-2 flex items-center gap-2 px-1 text-xs text-gray-500">
                 <CalendarDays size={14} className="text-red-500/70" />
                 {movie.releaseDate}
               </div>
 
-              {/* Release Year */}
               <div className="mt-2 flex items-center gap-2 px-1 text-xs text-gray-500">
                 <Clock size={14} className="text-red-500/70" />
                 Release Year: {movie.releaseYear}
               </div>
 
-              {/* Disabled Button */}
               <button
                 type="button"
                 disabled
@@ -140,7 +131,6 @@ const UpcommigMovies = () => {
           ))}
         </div>
 
-        {/* Empty State */}
         {movies.length === 0 && (
           <div className="rounded-xl border border-white/10 bg-[#121212] py-16 text-center">
             <Film size={40} className="mx-auto text-gray-600" />
@@ -155,7 +145,7 @@ const UpcommigMovies = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -18,14 +18,14 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-   
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   const { data, isPending } = useSession();
   const user = data?.user;
- 
+
   const navLinks = [
     { label: "Movies", href: "/movies" },
     { label: "Rewatch Plan", href: "/rewatch" },
@@ -100,7 +100,7 @@ export default function Navbar() {
   const signInButton = (
     <Link
       href="/login"
-      className="rounded-md bg-red-600 py-2.5 text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
+      className="rounded-md bg-red-600 px-4 py-2.5 text-xs font-bold uppercase tracking-wide transition hover:bg-red-500"
     >
       Sign In
     </Link>
@@ -180,7 +180,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="border-t border-white/10 bg-[#100e0e]  py-4 lg:hidden">
+        <div className="border-t border-white/10 bg-[#100e0e] px-4 py-4 lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col">
 
             {/* Mobile Search */}
